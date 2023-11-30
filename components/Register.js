@@ -1,9 +1,26 @@
+"use client";
+
+import { Context } from "@/Context/Context";
+import Image from "next/image";
 import Link from "next/link";
+import { useContext } from "react";
 
 const Register = () => {
+  const { signupDetails, setSignupDetails, handleSignupSubmit } =
+    useContext(Context);
+
+  const handleChange = (e) => {
+    setSignupDetails({
+      ...signupDetails,
+      [e.target.name]: e.target.value,
+    });
+  };
   return (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="w-full h-full flex items-center justify-center relative">
+      <span className="absolute left-0 top-0 z-0 w-full h-screen">
+        <Image src={"/back.png"} alt="back" layout="fill" objectFit="cover" />
+      </span>
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 z-10">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign Up
@@ -11,7 +28,7 @@ const Register = () => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSignupSubmit}>
             <div>
               <label
                 htmlFor="name"
@@ -25,6 +42,8 @@ const Register = () => {
                   name="name"
                   type="name"
                   autoComplete="name"
+                  value={signupDetails.name}
+                  onChange={handleChange}
                   required
                   className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
                 />
@@ -43,6 +62,8 @@ const Register = () => {
                   name="email"
                   type="email"
                   autoComplete="email"
+                  value={signupDetails.email}
+                  onChange={handleChange}
                   required
                   className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
                 />
@@ -64,6 +85,8 @@ const Register = () => {
                   name="password"
                   type="password"
                   autoComplete="current-password"
+                  value={signupDetails.password}
+                  onChange={handleChange}
                   required
                   className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
                 />

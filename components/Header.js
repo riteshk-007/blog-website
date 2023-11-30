@@ -37,7 +37,7 @@ const Header = () => {
           </li>
         </ul>
       </div>
-      <div className="w-1/3 md:hidden flex items-center justify-end px-2">
+      <div className="w-1/3 md:hidden flex items-center justify-end px-2 z-50">
         <span
           className="text-white bg-gray-800 p-1 rounded-sm shadow cursor-pointer"
           onClick={() => setShow(!show)}

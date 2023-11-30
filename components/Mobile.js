@@ -2,7 +2,7 @@ import Link from "next/link";
 import { MdClose } from "react-icons/md";
 const Mobile = ({ setShow }) => {
   return (
-    <div className="flex items-start justify-start w-full h-full p-2 flex-col">
+    <div className="flex items-start justify-start w-full h-full p-2 flex-col z-50">
       <span className=" text-white w-full flex items-center justify-end p-2">
         <MdClose onClick={() => setShow(false)} fontSize={20} />
       </span>
