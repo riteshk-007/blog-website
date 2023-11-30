@@ -8,7 +8,7 @@ import { Context } from "@/Context/Context";
 
 const Header = () => {
   const [show, setShow] = useState(false);
-  const { user } = useContext(Context);
+  const { user, handleLogoutUser } = useContext(Context);
   return (
     <div className="w-full h-20 p-1  flex items-center justify-between relative">
       <div className="w-1/3 flex items-center justify-start px-2">
@@ -32,8 +32,8 @@ const Header = () => {
       <div className="w-1/3 hidden md:flex items-center justify-end px-2">
         {user ? (
           <ul>
-            <li className="inline-block bg-black text-white p-2 rounded-md shadow text-sm font-semibold">
-              <Link href="/login">Logout</Link>
+            <li className="inline-block bg-black text-white p-2 rounded-md shadow text-sm font-semibold cursor-pointer">
+              <span onClick={handleLogoutUser}>Logout</span>
             </li>
           </ul>
         ) : (

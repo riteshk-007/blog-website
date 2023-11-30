@@ -93,7 +93,6 @@ const ContextProvider = ({ children }) => {
   };
 
   // check user login or not
-
   useEffect(() => {
     const currentUser = async () => {
       const res = await fetch("/api/login-user", {
@@ -111,6 +110,25 @@ const ContextProvider = ({ children }) => {
     };
     currentUser();
   }, [loginDetails]);
+
+  // Logout User Function
+  const handleLogoutUser = async () => {
+    try {
+      const res = await fetch("/api/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      if (data.message === "User logged out successfully") {
+        setUser(null);
+        toast.success("Logout Successfully");
+      }
+    } catch (error) {
+      toast.error("Logout Failed");
+    }
+  };
   return (
     <Context.Provider
       value={{
@@ -121,6 +139,7 @@ const ContextProvider = ({ children }) => {
         setLoginDetails,
         handleLoginSubmit,
         user,
+        handleLogoutUser,
       }}
     >
       {children}
