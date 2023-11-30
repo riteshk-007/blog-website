@@ -2,11 +2,13 @@
 import Image from "next/image";
 import { FaBars } from "react-icons/fa6";
 import Mobile from "./Mobile";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Link from "next/link";
+import { Context } from "@/Context/Context";
 
 const Header = () => {
   const [show, setShow] = useState(false);
+  const { user } = useContext(Context);
   return (
     <div className="w-full h-20 p-1  flex items-center justify-between relative">
       <div className="w-1/3 flex items-center justify-start px-2">
@@ -28,14 +30,22 @@ const Header = () => {
         </ul>
       </div>
       <div className="w-1/3 hidden md:flex items-center justify-end px-2">
-        <ul>
-          <li className="inline-block px-2 text-sm font-semibold mx-2">
-            <Link href="/login">Login</Link>
-          </li>
-          <li className="inline-block bg-black text-white p-2 rounded-md shadow text-sm font-semibold">
-            <Link href="/register">Sign up</Link>
-          </li>
-        </ul>
+        {user ? (
+          <ul>
+            <li className="inline-block bg-black text-white p-2 rounded-md shadow text-sm font-semibold">
+              <Link href="/login">Logout</Link>
+            </li>
+          </ul>
+        ) : (
+          <ul>
+            <li className="inline-block px-2 text-sm font-semibold mx-2">
+              <Link href="/login">Login</Link>
+            </li>
+            <li className="inline-block bg-black text-white p-2 rounded-md shadow text-sm font-semibold">
+              <Link href="/register">Sign up</Link>
+            </li>
+          </ul>
+        )}
       </div>
       <div className="w-1/3 md:hidden flex items-center justify-end px-2 z-50">
         <span

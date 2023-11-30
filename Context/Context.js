@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 export const Context = createContext();
@@ -16,7 +16,7 @@ const ContextProvider = ({ children }) => {
     email: "",
     password: "",
   });
-
+  const [user, setUser] = useState(null);
   // sign up user
   const handleSignupSubmit = async (e) => {
     e.preventDefault();
@@ -92,6 +92,25 @@ const ContextProvider = ({ children }) => {
     }
   };
 
+  // check user login or not
+
+  useEffect(() => {
+    const currentUser = async () => {
+      const res = await fetch("/api/login-user", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      if (data.detail) {
+        setUser(data.detail);
+      } else {
+        setUser(null);
+      }
+    };
+    currentUser();
+  }, [loginDetails]);
   return (
     <Context.Provider
       value={{
@@ -101,6 +120,7 @@ const ContextProvider = ({ children }) => {
         loginDetails,
         setLoginDetails,
         handleLoginSubmit,
+        user,
       }}
     >
       {children}
