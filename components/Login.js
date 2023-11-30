@@ -1,8 +1,15 @@
 "use client";
+import { Context } from "@/Context/Context";
 import Image from "next/image";
 import Link from "next/link";
+import { useContext } from "react";
 
 const Login = () => {
+  const { loginDetails, setLoginDetails, handleLoginSubmit } =
+    useContext(Context);
+  const handleChange = (e) => {
+    setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
+  };
   return (
     <div className="w-full h-full flex items-center justify-center relative">
       <span className="absolute left-0 top-0 z-0 w-full h-screen">
@@ -16,7 +23,7 @@ const Login = () => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleLoginSubmit}>
             <div>
               <label
                 htmlFor="email"
@@ -30,8 +37,10 @@ const Login = () => {
                   name="email"
                   type="email"
                   autoComplete="email"
+                  value={loginDetails.email}
+                  onChange={handleChange}
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
+                  className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -51,8 +60,10 @@ const Login = () => {
                   name="password"
                   type="password"
                   autoComplete="current-password"
+                  value={loginDetails.password}
+                  onChange={handleChange}
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
+                  className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>

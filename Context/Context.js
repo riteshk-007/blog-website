@@ -12,6 +12,12 @@ const ContextProvider = ({ children }) => {
     email: "",
     password: "",
   });
+  const [loginDetails, setLoginDetails] = useState({
+    email: "",
+    password: "",
+  });
+
+  // sign up user
   const handleSignupSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -49,9 +55,53 @@ const ContextProvider = ({ children }) => {
       console.log(error);
     }
   };
+
+  // login user
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: loginDetails.email,
+          password: loginDetails.password,
+        }),
+      });
+      const data = await res.json();
+      if (data.message === "user login successfully") {
+        toast.success("user login successfully", {
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+        router.push("/");
+        setLoginDetails({
+          email: "",
+          password: "",
+        });
+      } else {
+        toast.error("Invalid credentials");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Context.Provider
-      value={{ signupDetails, setSignupDetails, handleSignupSubmit }}
+      value={{
+        signupDetails,
+        setSignupDetails,
+        handleSignupSubmit,
+        loginDetails,
+        setLoginDetails,
+        handleLoginSubmit,
+      }}
     >
       {children}
     </Context.Provider>
