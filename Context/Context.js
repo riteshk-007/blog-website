@@ -123,7 +123,13 @@ const ContextProvider = ({ children }) => {
       const data = await res.json();
       if (data.message === "User logged out successfully") {
         setUser(null);
-        toast.success("Logout Successfully");
+        toast.success("Logout Successfully", {
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
       }
     } catch (error) {
       toast.error("Logout Failed");
