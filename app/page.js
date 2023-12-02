@@ -1,3 +1,9 @@
+import Slider from "@/components/Slider";
+
 export default function Home() {
-  return <h1>hello</h1>;
+  return (
+    <div className="flex items-center justify-center flex-col">
+      <Slider />
+    </div>
+  );
 }

@@ -22,13 +22,20 @@ const Mobile = ({ setShow }) => {
             </Link>
           </li>
           <li className="block px-2 text-xl font-bold tracking-widest my-3">
-            <Link href="/about" onClick={() => setShow(false)}>
+            <Link href="/blog" onClick={() => setShow(false)}>
               Blog
             </Link>
           </li>
+          {user && (
+            <li className="block px-2 text-xl font-bold tracking-widest my-3">
+              <Link href="/add-blog" onClick={() => setShow(false)}>
+                Add blog
+              </Link>
+            </li>
+          )}
           <li className="block px-2 text-xl font-bold tracking-widest my-3">
-            <Link href="/contact" onClick={() => setShow(false)}>
-              About
+            <Link href="/about" onClick={() => setShow(false)}>
+              About us
             </Link>
           </li>
         </ul>

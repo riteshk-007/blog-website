@@ -19,14 +19,19 @@ const Header = () => {
       </div>
       <div className="w-1/3 hidden md:flex items-center justify-center">
         <ul>
-          <li className="inline-block px-2 text-base font-semibold">
+          <li className="inline-block px-2 text-sm p-1 font-semibold hover:bg-black hover:text-white rounded transition-all  origin-bottom duration-150">
             <Link href="/">Home</Link>
           </li>
-          <li className="inline-block px-2 text-base font-semibold">
-            <Link href="/about">Blog</Link>
+          <li className="inline-block px-2 text-sm p-1 font-semibold hover:bg-black hover:text-white rounded transition-all  origin-bottom duration-150">
+            <Link href="/blog">Blog</Link>
           </li>
-          <li className="inline-block px-2 text-base font-semibold">
-            <Link href="/contact">About</Link>
+          {user && (
+            <li className="inline-block px-2 text-sm p-1 font-semibold hover:bg-black hover:text-white rounded transition-all  origin-bottom duration-150">
+              <Link href="/add-blog">Add blog</Link>
+            </li>
+          )}
+          <li className="inline-block px-2 text-sm p-1 font-semibold hover:bg-black hover:text-white rounded transition-all  origin-bottom duration-150">
+            <Link href="/about">About us</Link>
           </li>
         </ul>
       </div>
@@ -36,7 +41,7 @@ const Header = () => {
             <li className="inline-block px-2 text-sm font-semibold mx-2 capitalize">
               {`Hello, ${name}`}
             </li>
-            <li className="inline-block bg-black text-white p-2 rounded-md shadow text-sm font-semibold cursor-pointer">
+            <li className="inline-block bg-black text-white p-2 rounded-md shadow text-sm font-semibold cursor-pointer hover:bg-gray-900  transition-all  duration-150">
               <span onClick={handleLogoutUser}>Logout</span>
             </li>
           </ul>
@@ -45,7 +50,7 @@ const Header = () => {
             <li className="inline-block px-2 text-sm font-semibold mx-2">
               <Link href="/login">Login</Link>
             </li>
-            <li className="inline-block bg-black text-white p-2 rounded-md shadow text-sm font-semibold">
+            <li className="inline-block bg-black text-white p-2 rounded-md shadow text-sm font-semibold hover:bg-gray-900  transition-all  duration-150">
               <Link href="/register">Sign up</Link>
             </li>
           </ul>
