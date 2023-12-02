@@ -1,5 +1,11 @@
+import AllBlogs from "@/components/AllBlogs";
+
 const page = () => {
-  return <div>blog page</div>;
+  return (
+    <div>
+      <AllBlogs />
+    </div>
+  );
 };
 
 export default page;
