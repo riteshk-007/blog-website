@@ -1,8 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const BlogCard = () => {
   return (
-    <div className="flex items-center justify-center flex-col overflow-hidden cursor-pointer">
+    <Link
+      href={"/blog/1"}
+      className="flex items-center justify-center flex-col overflow-hidden cursor-pointer"
+    >
       <Image
         src={"/images/banner3.jpg"}
         alt="Picture of the author"
@@ -27,7 +31,7 @@ const BlogCard = () => {
           <span className="text-xs"> 12/12/2021</span>
         </span>
       </div>
-    </div>
+    </Link>
   );
 };
 
