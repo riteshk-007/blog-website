@@ -11,11 +11,6 @@ const PostSchema = mongoose.Schema({
     required: [true, "Please add a paragraph"],
     trim: true,
   },
-  author: {
-    type: String,
-    required: true,
-    trim: true,
-  },
   date: {
     type: Date,
     default: Date.now,
