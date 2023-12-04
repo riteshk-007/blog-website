@@ -28,11 +28,16 @@ export function middleware(request) {
           { error: "You are not authorized" },
           { status: 401 }
         );
+      } else if (
+        !AuthToken &&
+        request.nextUrl.pathname.startsWith("/add-blog")
+      ) {
+        return NextResponse.redirect(new URL("/login", request.nextUrl));
       }
     }
   }
 }
 
 export const config = {
-  matcher: ["/", "/login", "/register", "/api/:path*"],
+  matcher: ["/", "/login", "/register", "/add-blog", "/api/:path*"],
 };

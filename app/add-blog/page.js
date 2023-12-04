@@ -1,5 +1,7 @@
+import Write from "@/components/Write";
+
 const page = () => {
-  return <div>add blog page</div>;
+  return <Write />;
 };
 
 export default page;
