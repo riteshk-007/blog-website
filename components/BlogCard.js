@@ -1,14 +1,18 @@
+"use client";
+import { Context } from "@/Context/Context";
 import Image from "next/image";
 import Link from "next/link";
+import { useContext } from "react";
 
-const BlogCard = () => {
+const BlogCard = ({ post }) => {
+  const { user } = useContext(Context);
   return (
     <Link
-      href={"/blog/1"}
+      href={user ? `/blog/${post._id}` : "/login"}
       className="flex items-center justify-center flex-col overflow-hidden cursor-pointer"
     >
       <Image
-        src={"/images/banner3.jpg"}
+        src={"/images/blog.jpg"}
         alt="Picture of the author"
         width={400}
         height={250}
@@ -16,19 +20,19 @@ const BlogCard = () => {
       />
       <div className="flex flex-col items-start justify-start p-2 w-full">
         <span className="font-bold capitalize truncate overflow-hidden w-full">
-          create a blog webiste with nextjs
+          {post?.title}
         </span>
-        <span className="text-sm my-1  overflow-ellipsis overflow-hidden w-full h-20 text-gray-500">
-          this is a blog website created with nextjs and tailwindcss. this is a
-          blog website created with nextjs and tailwindcss this is a blog
-          website created with nextjs and tailwindcss this is a blog website
-          created with nextjs and tailwindcss this is a blog website created
-          with nextjs and tailwindcss. this is a blog website created with
-          nextjs and tailwindcss.
-        </span>
+        <div
+          className="text-sm my-1  overflow-ellipsis overflow-hidden w-full h-20 text-gray-500"
+          dangerouslySetInnerHTML={{ __html: post?.body }}
+        />
+
         <span className="text-xs font-semibold my-1 text-gray-800">
           Ritesh
-          <span className="text-xs"> 12/12/2021</span>
+          <br />
+          <span className="text-xs">
+            {new Date(post?.date).toLocaleDateString()}
+          </span>
         </span>
       </div>
     </Link>

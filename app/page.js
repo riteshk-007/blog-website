@@ -1,4 +1,4 @@
-import AllBlogs from "@/components/AllBlogs";
+import HomePageBLog from "@/components/HomePageBLog";
 import Slider from "@/components/Slider";
 
 export default function Home() {
@@ -13,7 +13,7 @@ export default function Home() {
           Recent blog posts
         </h1>
       </span>
-      <AllBlogs />
+      <HomePageBLog />
     </div>
   );
 }
