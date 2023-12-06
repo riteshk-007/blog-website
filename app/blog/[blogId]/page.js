@@ -1,4 +1,5 @@
 "use client";
+import Comments from "@/components/Comments";
 import SinglePageSkeleton from "@/components/SinglePageSkeleton";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -56,6 +57,10 @@ const BlogPage = () => {
               dangerouslySetInnerHTML={{ __html: blog?.post?.body }}
             />
           </span>
+
+          <div className="w-full">
+            <Comments />
+          </div>
         </div>
       )}
     </>
