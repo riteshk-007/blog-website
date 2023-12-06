@@ -41,7 +41,7 @@ const AllBlogs = () => {
           No Posts
         </h1>
       ) : (
-        <div className="w-11/12 mx-auto mt-4 grid grid-cols-4  gap-4">
+        <div className="w-11/12 mx-auto mt-4 grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2  gap-4">
           {allPosts
             .map((post) => <BlogCard key={post._id} post={post} />)
             .reverse()}

@@ -11,9 +11,13 @@ const Footer = () => {
       <p className="text-sm md:text-base my-2">
         {"Have an idea? Let's talk about it."}
       </p>
-      <button className="bg-gray-800 my-4 text-white px-5 py-2 text-sm rounded-lg shadow-lg font-bold hover:bg-gray-700 transition duration-300 ease-in-out border-2 border-gray-600">
+      <a
+        href="https://www.linkedin.com/in/ritesh-kumar-8064b626b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+        target="_blank"
+        className="bg-gray-800 my-4 text-white px-5 py-2 text-sm rounded-lg shadow-lg font-bold hover:bg-gray-700 transition duration-300 ease-in-out border-2 border-gray-600"
+      >
         Get Started
-      </button>
+      </a>
       <div className=" bg-black w-full">
         <div className="mx-auto w-full max-w-screen-xl">
           <div className="grid grid-cols-2 gap-8 px-4 py-6 lg:py-8 md:grid-cols-4">
