@@ -28,7 +28,7 @@ const BlogCard = ({ post }) => {
         />
 
         <span className="text-xs font-semibold my-1 text-gray-800">
-          Ritesh
+          {post?.author}
           <br />
           <span className="text-xs">
             {new Date(post?.date).toLocaleDateString()}

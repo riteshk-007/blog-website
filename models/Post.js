@@ -20,6 +20,10 @@ const PostSchema = mongoose.Schema({
     required: true,
     ref: "User",
   },
+  author: {
+    type: String,
+    required: true,
+  },
 });
 
 const Post = mongoose.models.Post || mongoose.model("Post", PostSchema);

@@ -12,7 +12,6 @@ const PostContextProvider = ({ children }) => {
   const [value, setValue] = useState("");
   const [posts, setPosts] = useState("");
   const [loading, setLoading] = useState(false);
-  const [allPosts, setAllPosts] = useState([]);
 
   // create post
   const createPost = async () => {
@@ -28,6 +27,7 @@ const PostContextProvider = ({ children }) => {
           title: posts,
           body: value,
           userId: user._id,
+          author: user.name,
         }),
       });
       const data = await res.json();
@@ -64,30 +64,6 @@ const PostContextProvider = ({ children }) => {
       });
     }
   };
-  //  get all posts
-  useEffect(() => {
-    const getPosts = async () => {
-      setLoading(true);
-      try {
-        const res = await fetch("/api/post", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        const data = await res.json();
-        setLoading(false);
-        if (data.posts) {
-          setAllPosts(data.posts);
-        }
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
-      }
-    };
-
-    getPosts();
-  }, []);
   return (
     <PostContext.Provider
       value={{
@@ -97,7 +73,6 @@ const PostContextProvider = ({ children }) => {
         posts,
         setPosts,
         loading,
-        allPosts,
       }}
     >
       {children}

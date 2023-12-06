@@ -21,6 +21,28 @@ const ContextProvider = ({ children }) => {
   const handleSignupSubmit = async (e) => {
     e.preventDefault();
     try {
+      const isValidEmail = /\S+@\S+\.\S+/.test(signupDetails.email);
+      if (!isValidEmail) {
+        toast.error("Please enter a valid email address", {
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+        return;
+      }
+      if (signupDetails.password.length < 6) {
+        toast.error("Password must be at least 6 characters long", {
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+        return;
+      }
+
       const res = await fetch("/api/signup", {
         method: "POST",
         headers: {
@@ -57,9 +79,62 @@ const ContextProvider = ({ children }) => {
   };
 
   // login user
+  const checkUserExists = async (email) => {
+    try {
+      const res = await fetch("/api/check-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+      if (data.message === "User already exists") {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  };
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
+
     try {
+      const isValidEmail = /\S+@\S+\.\S+/.test(loginDetails.email);
+      if (!isValidEmail) {
+        toast.error("Please enter a valid email address", {
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+        return;
+      }
+      if (loginDetails.password.length < 6) {
+        toast.error("Password must be at least 6 characters long", {
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+        return;
+      }
+      const userExists = await checkUserExists(loginDetails.email);
+      if (!userExists) {
+        toast.error("User does not exist. Please sign up first.", {
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+        return;
+      }
       const res = await fetch("/api/login", {
         method: "POST",
         headers: {
@@ -72,7 +147,7 @@ const ContextProvider = ({ children }) => {
       });
       const data = await res.json();
       if (data.message === "user login successfully") {
-        toast.success("user login successfully", {
+        toast.success(data.message, {
           style: {
             borderRadius: "10px",
             background: "#333",
@@ -85,10 +160,23 @@ const ContextProvider = ({ children }) => {
           password: "",
         });
       } else {
-        toast.error("Invalid credentials");
+        toast.error(data.message, {
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      toast.error("An unexpected error occurred. Please try again later.", {
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
     }
   };
 
