@@ -24,27 +24,6 @@ const PostSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  comments: {
-    type: [
-      {
-        body: {
-          type: String,
-          required: true,
-          trim: true,
-        },
-        author: {
-          type: String,
-          required: true,
-          trim: true,
-        },
-        date: {
-          type: Date,
-          default: Date.now,
-        },
-      },
-    ],
-    default: [],
-  },
 });
 
 const Post = mongoose.models.Post || mongoose.model("Post", PostSchema);

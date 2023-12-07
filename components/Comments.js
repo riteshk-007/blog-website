@@ -1,4 +1,4 @@
-const Comments = () => {
+const Comments = ({ comments, setComments, commentHandler }) => {
   return (
     <div className="mt-5">
       <section className="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
@@ -8,9 +8,9 @@ const Comments = () => {
               Blog Comments
             </h2>
           </div>
-          <form className="mb-6">
+          <form className="mb-6" onSubmit={commentHandler}>
             <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-              <label for="comment" className="sr-only">
+              <label htmlFor="comment" className="sr-only">
                 Your comment
               </label>
               <textarea
@@ -19,6 +19,8 @@ const Comments = () => {
                 className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
                 placeholder="Write a comment..."
                 required
+                value={comments}
+                onChange={(e) => setComments(e.target.value)}
               ></textarea>
             </div>
             <button
@@ -35,7 +37,11 @@ const Comments = () => {
                   Bonnie Green
                 </p>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  <time pubdate datetime="2022-03-12" title="March 12th, 2022">
+                  <time
+                    pubdate="true"
+                    dateTime="2022-03-12"
+                    title="March 12th, 2022"
+                  >
                     Mar. 12, 2022
                   </time>
                 </p>
@@ -76,9 +82,9 @@ const Comments = () => {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"
                   />
                 </svg>
@@ -93,7 +99,11 @@ const Comments = () => {
                   Helene Engels
                 </p>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  <time pubdate datetime="2022-06-23" title="June 23rd, 2022">
+                  <time
+                    pubdate="true"
+                    dateTime="2022-06-23"
+                    title="June 23rd, 2022"
+                  >
                     Jun. 23, 2022
                   </time>
                 </p>
@@ -133,9 +143,9 @@ const Comments = () => {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"
                   />
                 </svg>

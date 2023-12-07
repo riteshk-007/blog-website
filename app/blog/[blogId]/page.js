@@ -1,15 +1,18 @@
 "use client";
+import { Context } from "@/Context/Context";
 import Comments from "@/components/Comments";
 import SinglePageSkeleton from "@/components/SinglePageSkeleton";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const BlogPage = () => {
   const [blog, setBlog] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [comments, setComments] = useState([]); // [ { body: "comment", author: "author", date: "date" } ]
   const params = useParams();
   const { blogId } = params;
+  const { user } = useContext(Context);
 
   useEffect(() => {
     const GetSingleBlogDetails = async () => {
@@ -25,6 +28,26 @@ const BlogPage = () => {
     };
     GetSingleBlogDetails();
   }, [blogId]);
+
+  const commentHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(`/api/post/${blogId}`, {
+        method: "POST",
+        body: JSON.stringify({ content: comments, postId: blogId, user: user }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      if (data) {
+        console.log(data);
+        setComments("");
+      } else {
+        console.log("error");
+      }
+    } catch (error) {}
+  };
   return (
     <>
       {loading ? (
@@ -59,7 +82,11 @@ const BlogPage = () => {
           </span>
 
           <div className="w-full">
-            <Comments />
+            <Comments
+              comments={comments}
+              setComments={setComments}
+              commentHandler={commentHandler}
+            />
           </div>
         </div>
       )}
