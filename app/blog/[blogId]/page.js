@@ -5,11 +5,13 @@ import SinglePageSkeleton from "@/components/SinglePageSkeleton";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const BlogPage = () => {
   const [blog, setBlog] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [comments, setComments] = useState([]); // [ { body: "comment", author: "author", date: "date" } ]
+  const [comments, setComments] = useState([]);
+  const [list, setList] = useState([]);
   const params = useParams();
   const { blogId } = params;
   const { user } = useContext(Context);
@@ -28,6 +30,27 @@ const BlogPage = () => {
     };
     GetSingleBlogDetails();
   }, [blogId]);
+  useEffect(() => {
+    const GetComments = async () => {
+      setLoading(true);
+      const res = await fetch(`/api/comment`, {
+        method: "POST",
+        body: JSON.stringify({ postId: blogId }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      console.log(data);
+      setLoading(false);
+      if (data) {
+        setList(data);
+      } else {
+        console.log("error");
+      }
+    };
+    GetComments();
+  }, [blogId]);
 
   const commentHandler = async (e) => {
     e.preventDefault();
@@ -41,12 +64,33 @@ const BlogPage = () => {
       });
       const data = await res.json();
       if (data) {
-        console.log(data);
+        toast.success("Comment Added Successfully", {
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
         setComments("");
       } else {
-        console.log("error");
+        toast.error("Something went wrong", {
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong", {
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+    }
   };
   return (
     <>
