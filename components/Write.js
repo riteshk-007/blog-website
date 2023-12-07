@@ -4,7 +4,10 @@ import { PostContext } from "@/Context/PostApi";
 import { useContext } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.bubble.css";
+import dynamic from "next/dynamic";
+
 const Write = () => {
+  const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
   const { createPost, value, setValue, posts, setPosts } =
     useContext(PostContext);
   const handleSubmit = () => {

@@ -1,5 +1,4 @@
 const Comments = ({ comments, setComments, commentHandler, list }) => {
-  console.log(list);
   return (
     <div className="mt-5">
       <section className="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
@@ -31,7 +30,7 @@ const Comments = ({ comments, setComments, commentHandler, list }) => {
               Post comment
             </button>
           </form>
-          {list.comments.length ? (
+          {list?.comments?.length ? (
             <div>
               {list?.comments?.map((comment, index) => (
                 <article
@@ -45,7 +44,7 @@ const Comments = ({ comments, setComments, commentHandler, list }) => {
                       </p>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
                         <time pubdate="true" dateTime={comment.date}>
-                          {new Date(comment?.date).toUTCString()}
+                          {new Date(comment?.date).toLocaleDateString()}
                         </time>
                       </p>
                     </div>
