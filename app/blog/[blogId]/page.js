@@ -41,7 +41,6 @@ const BlogPage = () => {
         },
       });
       const data = await res.json();
-      console.log(data);
       setLoading(false);
       if (data) {
         setList(data);
@@ -57,7 +56,11 @@ const BlogPage = () => {
     try {
       const res = await fetch(`/api/post/${blogId}`, {
         method: "POST",
-        body: JSON.stringify({ content: comments, postId: blogId, user: user }),
+        body: JSON.stringify({
+          content: comments,
+          postId: blogId,
+          user: user.name,
+        }),
         headers: {
           "Content-Type": "application/json",
         },
@@ -130,6 +133,7 @@ const BlogPage = () => {
               comments={comments}
               setComments={setComments}
               commentHandler={commentHandler}
+              list={list}
             />
           </div>
         </div>
