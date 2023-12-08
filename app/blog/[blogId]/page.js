@@ -1,11 +1,9 @@
 "use client";
-import { Context } from "@/Context/Context";
 import Comments from "@/components/Comments";
 import SinglePageSkeleton from "@/components/SinglePageSkeleton";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { useContext, useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
 
 const BlogPage = () => {
   const [blog, setBlog] = useState([]);
@@ -14,7 +12,6 @@ const BlogPage = () => {
   const [list, setList] = useState([]);
   const params = useParams();
   const { blogId } = params;
-  const { user } = useContext(Context);
 
   useEffect(() => {
     const GetSingleBlogDetails = async () => {
@@ -30,71 +27,7 @@ const BlogPage = () => {
     };
     GetSingleBlogDetails();
   }, [blogId]);
-  useEffect(() => {
-    const GetComments = async () => {
-      setLoading(true);
-      const res = await fetch(`/api/comment`, {
-        method: "POST",
-        body: JSON.stringify({ postId: blogId }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await res.json();
-      setLoading(false);
-      if (data) {
-        setList(data);
-      } else {
-        console.log("error");
-      }
-    };
-    GetComments();
-  }, [blogId]);
 
-  const commentHandler = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch(`/api/post/${blogId}`, {
-        method: "POST",
-        body: JSON.stringify({
-          content: comments,
-          postId: blogId,
-          user: user.name,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await res.json();
-      if (data) {
-        toast.success("Comment Added Successfully", {
-          style: {
-            borderRadius: "10px",
-            background: "#333",
-            color: "#fff",
-          },
-        });
-        setComments("");
-      } else {
-        toast.error("Something went wrong", {
-          style: {
-            borderRadius: "10px",
-            background: "#333",
-            color: "#fff",
-          },
-        });
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong", {
-        style: {
-          borderRadius: "10px",
-          background: "#333",
-          color: "#fff",
-        },
-      });
-    }
-  };
   return (
     <>
       {loading ? (
@@ -129,12 +62,7 @@ const BlogPage = () => {
           </span>
 
           <div className="w-full">
-            <Comments
-              comments={comments}
-              setComments={setComments}
-              commentHandler={commentHandler}
-              list={list}
-            />
+            <Comments blogId={blogId} />
           </div>
         </div>
       )}
