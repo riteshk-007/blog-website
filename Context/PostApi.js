@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { Context } from "./Context";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -12,6 +12,7 @@ const PostContextProvider = ({ children }) => {
   const [value, setValue] = useState("");
   const [posts, setPosts] = useState("");
   const [loading, setLoading] = useState(false);
+  const [file, setFile] = useState(null);
 
   // create post
   const createPost = async () => {
@@ -73,6 +74,8 @@ const PostContextProvider = ({ children }) => {
         posts,
         setPosts,
         loading,
+        file,
+        setFile,
       }}
     >
       {children}
