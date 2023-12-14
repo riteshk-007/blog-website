@@ -8,8 +8,6 @@ import { useEffect, useState } from "react";
 const BlogPage = () => {
   const [blog, setBlog] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [comments, setComments] = useState([]);
-  const [list, setList] = useState([]);
   const params = useParams();
   const { blogId } = params;
 
@@ -27,6 +25,9 @@ const BlogPage = () => {
     };
     GetSingleBlogDetails();
   }, [blogId]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>

@@ -4,9 +4,10 @@ import { Context } from "@/Context/Context";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext } from "react";
+import Loader from "./Loader";
 
 const Register = () => {
-  const { signupDetails, setSignupDetails, handleSignupSubmit } =
+  const { signupDetails, setSignupDetails, handleSignupSubmit, isLoading } =
     useContext(Context);
 
   const handleChange = (e) => {
@@ -18,7 +19,12 @@ const Register = () => {
   return (
     <div className="w-full h-full flex items-center justify-center relative">
       <span className="absolute left-0 top-0 z-0 w-full h-screen">
-        <Image src={"/back.png"} alt="back" layout="fill" objectFit="cover" />
+        <Image
+          src={"/back.png"}
+          alt="back"
+          layout="fill"
+          className="object-cover"
+        />
       </span>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 z-10">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -94,12 +100,21 @@ const Register = () => {
             </div>
 
             <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-gray-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
-              >
-                Sign in
-              </button>
+              {!isLoading ? (
+                <button
+                  type="submit"
+                  className="flex w-full justify-center rounded-md bg-gray-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+                >
+                  Sign in
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="flex w-full justify-center cursor-wait  rounded-md bg-gray-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+                >
+                  <Loader />
+                </button>
+              )}
             </div>
           </form>
 

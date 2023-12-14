@@ -7,6 +7,7 @@ export const Context = createContext();
 
 const ContextProvider = ({ children }) => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const [signupDetails, setSignupDetails] = useState({
     name: "",
     email: "",
@@ -20,6 +21,7 @@ const ContextProvider = ({ children }) => {
   // sign up user
   const handleSignupSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const isValidEmail = /\S+@\S+\.\S+/.test(signupDetails.email);
       if (!isValidEmail) {
@@ -55,7 +57,7 @@ const ContextProvider = ({ children }) => {
         }),
       });
       const data = await res.json();
-
+      setIsLoading(false);
       if (data.message === "User created successfully") {
         toast.success("User created successfully", {
           style: {
@@ -101,7 +103,7 @@ const ContextProvider = ({ children }) => {
   };
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     try {
       const isValidEmail = /\S+@\S+\.\S+/.test(loginDetails.email);
       if (!isValidEmail) {
@@ -146,6 +148,7 @@ const ContextProvider = ({ children }) => {
         }),
       });
       const data = await res.json();
+      setIsLoading(false);
       if (data.message === "user login successfully") {
         toast.success(data.message, {
           style: {
@@ -234,6 +237,7 @@ const ContextProvider = ({ children }) => {
         handleLoginSubmit,
         user,
         handleLogoutUser,
+        isLoading,
       }}
     >
       {children}
