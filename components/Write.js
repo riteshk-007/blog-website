@@ -1,15 +1,13 @@
 "use client";
 
 import { PostContext } from "@/Context/PostApi";
-import { useContext } from "react";
-import "react-quill/dist/quill.bubble.css";
-import dynamic from "next/dynamic";
+import { useContext, useRef } from "react";
+import JoditEditor from "jodit-react";
 
 const Write = () => {
-  const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-
   const { createPost, value, setValue, posts, setPosts } =
     useContext(PostContext);
+  const editor = useRef(null);
 
   const handleSubmit = () => {
     createPost();
@@ -35,11 +33,10 @@ const Write = () => {
       </div>
       <div className="w-full lg:w-4/5 mx-auto my-2">
         {typeof document !== "undefined" && (
-          <ReactQuill
-            theme="bubble"
+          <JoditEditor
+            ref={editor}
             value={value}
-            onChange={setValue}
-            placeholder="Tell your story..."
+            onChange={(value) => setValue(value)}
           />
         )}
       </div>
