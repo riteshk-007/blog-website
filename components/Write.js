@@ -1,8 +1,11 @@
 "use client";
-
 import { PostContext } from "@/Context/PostApi";
 import { useContext, useRef } from "react";
-import JoditEditor from "jodit-react";
+
+let JoditEditor;
+if (typeof window !== "undefined") {
+  JoditEditor = require("jodit-react").default;
+}
 
 const Write = () => {
   const { createPost, value, setValue, posts, setPosts } =
@@ -32,7 +35,7 @@ const Write = () => {
         />
       </div>
       <div className="w-full lg:w-4/5 mx-auto my-2">
-        {typeof document !== "undefined" && (
+        {JoditEditor && (
           <JoditEditor
             ref={editor}
             value={value}
