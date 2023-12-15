@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useContext } from "react";
 import Loader from "./Loader";
+import TestUser from "./TestUser";
 
 const Login = () => {
   const { loginDetails, setLoginDetails, handleLoginSubmit, isLoading } =
@@ -103,6 +104,7 @@ const Login = () => {
             </Link>
           </p>
         </div>
+        <TestUser />
       </div>
     </div>
   );

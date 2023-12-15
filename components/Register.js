@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useContext } from "react";
 import Loader from "./Loader";
+import TestUser from "./TestUser";
 
 const Register = () => {
   const { signupDetails, setSignupDetails, handleSignupSubmit, isLoading } =
@@ -128,6 +129,11 @@ const Register = () => {
             </Link>
           </p>
         </div>
+        <p className="mt-10 text-center text-sm text-gray-700">
+          If you want to test then you can use this test account by going to the
+          login page.
+        </p>
+        <TestUser />
       </div>
     </div>
   );
