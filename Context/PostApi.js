@@ -1,11 +1,18 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { Context } from "./Context";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { app } from "./firebase";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 
 export const PostContext = createContext();
-
+const storage = getStorage(app);
 const PostContextProvider = ({ children }) => {
   const router = useRouter();
   const { user } = useContext(Context);
@@ -13,11 +20,65 @@ const PostContextProvider = ({ children }) => {
   const [posts, setPosts] = useState("");
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(null);
+  const [media, setMedia] = useState("");
+  const [uploading, setUploading] = useState(false);
+
+  useEffect(() => {
+    const upload = () => {
+      setUploading(true);
+      const name = new Date().getTime() + "-" + file.name;
+      const storageRef = ref(storage, name);
+
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+          }
+        },
+        (error) => {},
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setMedia(downloadURL);
+            setUploading(false);
+          });
+        }
+      );
+    };
+
+    file && upload();
+  }, [file]);
 
   // create post
   const createPost = async () => {
     setLoading(true);
     try {
+      if (media === "")
+        return toast.error("Please upload an image", {
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      if (uploading)
+        return toast.error("Please wait for the image upload to finish", {
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
       const res = await fetch("/api/post", {
         method: "POST",
         headers: {
@@ -29,6 +90,7 @@ const PostContextProvider = ({ children }) => {
           body: value,
           userId: user._id,
           author: user.name,
+          image: media,
         }),
       });
       const data = await res.json();
@@ -65,6 +127,7 @@ const PostContextProvider = ({ children }) => {
       });
     }
   };
+
   return (
     <PostContext.Provider
       value={{
@@ -76,6 +139,8 @@ const PostContextProvider = ({ children }) => {
         loading,
         file,
         setFile,
+        media,
+        setMedia,
       }}
     >
       {children}

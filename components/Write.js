@@ -9,15 +9,15 @@ if (typeof window !== "undefined") {
 }
 
 const Write = () => {
-  const { createPost, value, setValue, posts, setPosts, file, setFile } =
+  const { createPost, value, setValue, posts, setPosts, media, setFile } =
     useContext(PostContext);
 
   const editor = useRef(null);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     createPost();
+    setFile(null);
   };
-
   return (
     <div className="flex items-center relative p-5 flex-col">
       <button
@@ -26,23 +26,22 @@ const Write = () => {
       >
         publish
       </button>
-      <div className="w-full overflow-hidden my-10 mx-auto">
-        <span className="rounded-lg relative w-full">
+      <div className="w-full overflow-hidden mt-10 mx-auto">
+        <span className="rounded-lg  w-full">
           <input
             type="file"
             id="img"
-            value={file}
-            onChange={(e) => console.log(setFile(e.target.files[0]))}
+            onChange={(e) => setFile(e.target.files[0])}
             className="hidden"
             accept="
           image/png, image/jpeg, image/jpg, image/gif   
             "
           />
           <label htmlFor="img" className="w-full ">
-            {file === null ? (
+            {media.length === 0 ? (
               <>
                 <div className="lg:w-11/12 items-center justify-center mx-auto ">
-                  <div className="flex items-center justify-center h-96 mb-4 bg-gray-300 rounded dark:bg-gray-700 ">
+                  <div className="flex items-center justify-center h-40 mb-4 bg-gray-300 rounded dark:bg-gray-700 ">
                     <svg
                       className="w-10 h-10 text-gray-200 dark:text-gray-600"
                       aria-hidden="true"
@@ -57,17 +56,21 @@ const Write = () => {
                 </div>
               </>
             ) : (
-              <Image
-                src={""}
-                width={1780}
-                height={500}
-                alt="page"
-                className="object-cover w-full h-full "
-              />
+              <>
+                <div className="lg:w-11/12 items-center justify-center mx-auto ">
+                  <div className="flex items-center justify-center  mb-4 bg-gray-300 rounded dark:bg-gray-700 ">
+                    <Image
+                      src={media}
+                      alt="img"
+                      style={{ objectFit: "contain" }}
+                      loading="lazy"
+                      width={1780}
+                      height={200}
+                    />
+                  </div>
+                </div>
+              </>
             )}
-            <span className="absolute top-0 left-0 w-11/12 h-full lg:text-4xl capitalize transition-all  flex justify-center items-center font-bold lg:opacity-0 hover:opacity-100">
-              select image
-            </span>
           </label>
         </span>
       </div>
