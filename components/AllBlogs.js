@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import BlogCard from "./BlogCard";
 import Skeleton from "./Skeleton";
 
-const AllBlogs = () => {
+const AllBlogs = ({ show }) => {
   const [allPosts, setAllPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -42,9 +42,14 @@ const AllBlogs = () => {
         </h1>
       ) : (
         <div className="w-11/12 mx-auto mt-4 grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2  gap-4">
-          {allPosts
-            .map((post) => <BlogCard key={post._id} post={post} />)
-            .reverse()}
+          {!show
+            ? allPosts
+                .map((post) => <BlogCard key={post._id} post={post} />)
+                .reverse()
+            : allPosts
+                .slice(-8)
+                .map((post) => <BlogCard key={post._id} post={post} />)
+                .reverse()}
         </div>
       )}
     </div>

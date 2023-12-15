@@ -2,13 +2,14 @@
 import { PostContext } from "@/Context/PostApi";
 import AllBlogs from "./AllBlogs";
 import Skeleton from "./Skeleton";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 const HomePageBLog = () => {
   const { loading } = useContext(PostContext);
+  const [show] = useState(true);
   return (
     <div className="w-full mx-auto flex items-center justify-center">
-      {loading ? <Skeleton /> : <AllBlogs />}
+      {loading ? <Skeleton /> : <AllBlogs show={show} />}
     </div>
   );
 };

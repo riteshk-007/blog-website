@@ -14,9 +14,8 @@ const Write = () => {
 
   const editor = useRef(null);
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     createPost();
-    setFile(null);
   };
   return (
     <div className="flex items-center relative p-5 flex-col">

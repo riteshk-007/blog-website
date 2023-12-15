@@ -98,6 +98,7 @@ const PostContextProvider = ({ children }) => {
       if (data.message === "Post created successfully") {
         setPosts("");
         setValue("");
+        setMedia("");
         router.push("/blog");
         toast.success("Post created successfully", {
           style: {
