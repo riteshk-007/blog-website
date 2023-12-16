@@ -1,14 +1,11 @@
 "use client";
-import { Context } from "@/Context/Context";
 import Image from "next/image";
 import Link from "next/link";
-import { useContext } from "react";
 
 const BlogCard = ({ post }) => {
-  const { user } = useContext(Context);
   return (
     <Link
-      href={user ? `/blog/${post._id}` : "/login"}
+      href={`/blog/${post._id}`}
       className="flex items-center justify-start flex-col cursor-pointer overflow-hidden md:gap-2 lg:gap-4"
     >
       <div className="w-11/12  items-center justify-center mx-auto">

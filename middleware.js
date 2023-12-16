@@ -8,7 +8,8 @@ export function middleware(request) {
     request.nextUrl.pathname === "/api/login" ||
     request.nextUrl.pathname === "/api/signup" ||
     request.nextUrl.pathname === "/api/post" ||
-    request.nextUrl.pathname === "/api/check-email"
+    request.nextUrl.pathname === "/api/check-email" ||
+    /^\/api\/post\/\w+$/.test(request.nextUrl.pathname)
   ) {
     return null;
   }

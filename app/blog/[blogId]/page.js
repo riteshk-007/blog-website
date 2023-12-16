@@ -34,14 +34,20 @@ const BlogPage = () => {
         <SinglePageSkeleton />
       ) : (
         <div className="lg:w-11/12 flex items-center justify-center flex-col mx-auto ">
-          <div className="w-11/12 items-center justify-center mx-auto ">
+          <div className="w-11/12 items-center justify-center mx-auto md:h-[700px] overflow-hidden ">
             {blog?.post?.image ? (
               <Image
                 src={blog?.post?.image}
                 alt="post image"
                 width={1780}
-                height={128}
-                className="rounded-md"
+                height={500}
+                style={{
+                  objectFit: "contain",
+                  height: "100%",
+                  width: "100%",
+                  objectPosition: "center",
+                  borderRadius: "10px",
+                }}
               />
             ) : (
               <div className="flex items-center justify-center h-96 mb-4 bg-gray-300 rounded dark:bg-gray-700 ">
