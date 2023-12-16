@@ -9,9 +9,9 @@ const BlogCard = ({ post }) => {
   return (
     <Link
       href={user ? `/blog/${post._id}` : "/login"}
-      className="flex items-center justify-center flex-col overflow-hidden cursor-pointer"
+      className="flex items-center justify-start flex-col cursor-pointer overflow-hidden md:gap-2 lg:gap-4"
     >
-      <div className="w-11/12 items-center justify-center mx-auto  ">
+      <div className="w-11/12  items-center justify-center mx-auto">
         {post?.image ? (
           <Image
             src={post?.image}
@@ -21,7 +21,7 @@ const BlogCard = ({ post }) => {
             className="rounded-md"
           />
         ) : (
-          <div className="flex items-center justify-center h-32 lg:h-60 mb-4 bg-gray-300 rounded  ">
+          <div className="flex items-center justify-center h-32 lg:h-60 mb-4 bg-gray-300 rounded">
             <svg
               className="w-10 h-10 text-gray-200 dark:text-gray-600"
               aria-hidden="true"
@@ -35,15 +35,10 @@ const BlogCard = ({ post }) => {
           </div>
         )}
       </div>
-      <div className="flex flex-col items-start justify-start p-2 w-full">
+      <div className="flex flex-col items-start justify-start p-2 w-11/12">
         <span className="font-bold capitalize truncate overflow-hidden w-full">
           {post?.title}
         </span>
-        <div
-          className="text-sm my-1  overflow-ellipsis overflow-hidden w-full h-20 text-gray-500"
-          dangerouslySetInnerHTML={{ __html: post?.body }}
-        />
-
         <span className="text-xs font-semibold my-1 text-gray-800">
           {post?.author}
           <br />
